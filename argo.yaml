@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: demo
+  namespace: argocd
+spec:
+  destination:
+    name: ''
+    namespace: demo-ns
+    server: https://connectgateway.googleapis.com/v1beta1/projects/iac-prd-v1/locations/global/gkeMemberships/autopilot-cluster-v2
+  source:
+    path: 00-deploying-application
+    repoURL: 'https://github.com/christianh814/kbe-apps'
+    targetRevision: main
+  sources: []
+  project: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+    syncOptions:
+      - CreateNamespace=true
